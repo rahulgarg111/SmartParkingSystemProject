@@ -1,0 +1,136 @@
+[
+  {
+    "_id": "674a2c3d4e5f6789012350",
+    "bookingId": "BK001",
+    "userId": "674a1a2b3c4d5e6789012201",
+    "spaceId": "PS001",
+    "startTime": "2024-01-22T09:00:00Z",
+    "endTime": "2024-01-22T17:00:00Z",
+    "duration": 8,
+    "totalAmount": 120.00,
+    "status": "confirmed",
+    "bookingDate": "2024-01-20T14:30:00Z",
+    "vehicleInfo": {
+      "licensePlate": "ABC123",
+      "make": "Toyota",
+      "model": "Camry",
+      "color": "Blue"
+    },
+    "paymentStatus": "paid",
+    "specialRequests": ["electric_charging"],
+    "createdAt": "2024-01-20T14:30:00Z",
+    "updatedAt": "2024-01-22T08:45:00Z"
+  },
+  {
+    "_id": "674a2c3d4e5f6789012351",
+    "bookingId": "BK002",
+    "userId": "674a1a2b3c4d5e6789012202",
+    "spaceId": "PS003",
+    "startTime": "2024-01-23T19:00:00Z",
+    "endTime": "2024-01-23T23:30:00Z",
+    "duration": 4.5,
+    "totalAmount": 112.50,
+    "status": "confirmed",
+    "bookingDate": "2024-01-21T10:15:00Z",
+    "vehicleInfo": {
+      "licensePlate": "XYZ789",
+      "make": "Honda",
+      "model": "Civic",
+      "color": "Red"
+    },
+    "paymentStatus": "paid",
+    "specialRequests": [],
+    "createdAt": "2024-01-21T10:15:00Z",
+    "updatedAt": "2024-01-21T10:15:00Z"
+  },
+  {
+    "_id": "674a2c3d4e5f6789012352",
+    "bookingId": "BK003",
+    "userId": "674a1a2b3c4d5e6789012203",
+    "spaceId": "PS002",
+    "startTime": "2024-01-24T08:30:00Z",
+    "endTime": "2024-01-24T18:00:00Z",
+    "duration": 9.5,
+    "totalAmount": 175.75,
+    "status": "active",
+    "bookingDate": "2024-01-22T16:20:00Z",
+    "vehicleInfo": {
+      "licensePlate": "DEF456",
+      "make": "BMW",
+      "model": "X5",
+      "color": "Black"
+    },
+    "paymentStatus": "paid",
+    "specialRequests": ["valet_service"],
+    "createdAt": "2024-01-22T16:20:00Z",
+    "updatedAt": "2024-01-24T08:30:00Z"
+  },
+  {
+    "_id": "674a2c3d4e5f6789012353",
+    "bookingId": "BK004",
+    "userId": "674a1a2b3c4d5e6789012204",
+    "spaceId": "PS004",
+    "startTime": "2024-01-25T12:00:00Z",
+    "endTime": "2024-01-25T16:00:00Z",
+    "duration": 4,
+    "totalAmount": 51.00,
+    "status": "pending",
+    "bookingDate": "2024-01-22T18:45:00Z",
+    "vehicleInfo": {
+      "licensePlate": "GHI789",
+      "make": "Tesla",
+      "model": "Model 3",
+      "color": "White"
+    },
+    "paymentStatus": "pending",
+    "specialRequests": ["electric_charging"],
+    "createdAt": "2024-01-22T18:45:00Z",
+    "updatedAt": "2024-01-22T18:45:00Z"
+  },
+  {
+    "_id": "674a2c3d4e5f6789012354",
+    "bookingId": "BK005",
+    "userId": "674a1a2b3c4d5e6789012205",
+    "spaceId": "PS005",
+    "startTime": "2024-01-21T14:00:00Z",
+    "endTime": "2024-01-21T20:00:00Z",
+    "duration": 6,
+    "totalAmount": 132.00,
+    "status": "completed",
+    "bookingDate": "2024-01-20T11:30:00Z",
+    "vehicleInfo": {
+      "licensePlate": "JKL012",
+      "make": "Mercedes",
+      "model": "C-Class",
+      "color": "Silver"
+    },
+    "paymentStatus": "paid",
+    "specialRequests": ["valet_service"],
+    "createdAt": "2024-01-20T11:30:00Z",
+    "updatedAt": "2024-01-21T20:15:00Z"
+  },
+  {
+    "_id": "674a2c3d4e5f6789012355",
+    "bookingId": "BK006",
+    "userId": "674a1a2b3c4d5e6789012206",
+    "spaceId": "PS001",
+    "startTime": "2024-01-26T07:30:00Z",
+    "endTime": "2024-01-26T10:30:00Z",
+    "duration": 3,
+    "totalAmount": 45.00,
+    "status": "cancelled",
+    "bookingDate": "2024-01-22T20:00:00Z",
+    "vehicleInfo": {
+      "licensePlate": "MNO345",
+      "make": "Audi",
+      "model": "A4",
+      "color": "Gray"
+    },
+    "paymentStatus": "refunded",
+    "specialRequests": [],
+    "cancellationReason": "Change of plans",
+    "cancellationDate": "2024-01-23T08:15:00Z",
+    "createdAt": "2024-01-22T20:00:00Z",
+    "updatedAt": "2024-01-23T08:15:00Z"
+  }
+]

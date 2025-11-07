@@ -1,0 +1,117 @@
+[
+  {
+    "_id": "674a1b2c3d4e5f6789012345",
+    "spaceId": "PS001",
+    "ownerId": "674a1a2b3c4d5e6789012301",
+    "location": {
+      "address": "123 Main Street, Downtown",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10001",
+      "coordinates": {
+        "latitude": 40.7128,
+        "longitude": -74.0060
+      }
+    },
+    "capacity": 1,
+    "isAvailable": true,
+    "pricePerHour": 15.00,
+    "amenities": ["covered", "security_camera", "electric_charging"],
+    "spaceType": "street",
+    "description": "Convenient downtown parking spot near subway station",
+    "createdAt": "2024-01-15T08:30:00Z",
+    "updatedAt": "2024-01-22T14:20:00Z"
+  },
+  {
+    "_id": "674a1b2c3d4e5f6789012346",
+    "spaceId": "PS002",
+    "ownerId": "674a1a2b3c4d5e6789012302",
+    "location": {
+      "address": "456 Oak Avenue, Midtown",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10017",
+      "coordinates": {
+        "latitude": 40.7549,
+        "longitude": -73.9840
+      }
+    },
+    "capacity": 2,
+    "isAvailable": false,
+    "pricePerHour": 18.50,
+    "amenities": ["covered", "valet_service"],
+    "spaceType": "garage",
+    "description": "Premium garage parking with valet service",
+    "createdAt": "2024-01-10T10:15:00Z",
+    "updatedAt": "2024-01-22T16:45:00Z"
+  },
+  {
+    "_id": "674a1b2c3d4e5f6789012347",
+    "spaceId": "PS003",
+    "ownerId": "674a1a2b3c4d5e6789012303",
+    "location": {
+      "address": "789 Broadway, Theater District",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10019",
+      "coordinates": {
+        "latitude": 40.7580,
+        "longitude": -73.9855
+      }
+    },
+    "capacity": 1,
+    "isAvailable": true,
+    "pricePerHour": 25.00,
+    "amenities": ["24_7_access", "security_camera"],
+    "spaceType": "lot",
+    "description": "Theater district parking, perfect for shows and dining",
+    "createdAt": "2024-01-12T09:00:00Z",
+    "updatedAt": "2024-01-22T12:30:00Z"
+  },
+  {
+    "_id": "674a1b2c3d4e5f6789012348",
+    "spaceId": "PS004",
+    "ownerId": "674a1a2b3c4d5e6789012304",
+    "location": {
+      "address": "321 Fifth Avenue, Shopping District",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10016",
+      "coordinates": {
+        "latitude": 40.7467,
+        "longitude": -73.9834
+      }
+    },
+    "capacity": 3,
+    "isAvailable": true,
+    "pricePerHour": 12.75,
+    "amenities": ["electric_charging", "covered"],
+    "spaceType": "garage",
+    "description": "Shopping district garage with electric vehicle charging",
+    "createdAt": "2024-01-08T11:45:00Z",
+    "updatedAt": "2024-01-22T09:15:00Z"
+  },
+  {
+    "_id": "674a1b2c3d4e5f6789012349",
+    "spaceId": "PS005",
+    "ownerId": "674a1a2b3c4d5e6789012305",
+    "location": {
+      "address": "654 Park Avenue, Upper East Side",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10065",
+      "coordinates": {
+        "latitude": 40.7677,
+        "longitude": -73.9718
+      }
+    },
+    "capacity": 1,
+    "isAvailable": false,
+    "pricePerHour": 22.00,
+    "amenities": ["valet_service", "luxury"],
+    "spaceType": "private",
+    "description": "Exclusive private parking in upscale neighborhood",
+    "createdAt": "2024-01-05T14:20:00Z",
+    "updatedAt": "2024-01-22T17:00:00Z"
+  }
+]

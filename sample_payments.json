@@ -1,0 +1,176 @@
+[
+  {
+    "_id": "674a3d4e5f6789012360",
+    "paymentId": "PAY001",
+    "bookingId": "BK001",
+    "userId": "674a1a2b3c4d5e6789012201",
+    "amount": 120.00,
+    "currency": "USD",
+    "paymentMethod": {
+      "type": "credit_card",
+      "last4": "1234",
+      "brand": "visa",
+      "expiryMonth": 12,
+      "expiryYear": 2026
+    },
+    "transactionId": "txn_1K5Q2L2eZvKYlo2C8B9vX3Yq",
+    "status": "completed",
+    "paymentGateway": "stripe",
+    "paymentDate": "2024-01-20T14:35:00Z",
+    "processingFee": 3.50,
+    "netAmount": 116.50,
+    "description": "Parking booking payment for PS001",
+    "metadata": {
+      "spaceId": "PS001",
+      "duration": 8,
+      "location": "123 Main Street, Downtown"
+    },
+    "createdAt": "2024-01-20T14:35:00Z",
+    "updatedAt": "2024-01-20T14:35:00Z"
+  },
+  {
+    "_id": "674a3d4e5f6789012361",
+    "paymentId": "PAY002",
+    "bookingId": "BK002",
+    "userId": "674a1a2b3c4d5e6789012202",
+    "amount": 112.50,
+    "currency": "USD",
+    "paymentMethod": {
+      "type": "digital_wallet",
+      "provider": "paypal",
+      "email": "user@example.com"
+    },
+    "transactionId": "PAYID-MXVQCWY4G013816TC123456A",
+    "status": "completed",
+    "paymentGateway": "paypal",
+    "paymentDate": "2024-01-21T10:20:00Z",
+    "processingFee": 3.28,
+    "netAmount": 109.22,
+    "description": "Parking booking payment for PS003",
+    "metadata": {
+      "spaceId": "PS003",
+      "duration": 4.5,
+      "location": "789 Broadway, Theater District"
+    },
+    "createdAt": "2024-01-21T10:20:00Z",
+    "updatedAt": "2024-01-21T10:20:00Z"
+  },
+  {
+    "_id": "674a3d4e5f6789012362",
+    "paymentId": "PAY003",
+    "bookingId": "BK003",
+    "userId": "674a1a2b3c4d5e6789012203",
+    "amount": 175.75,
+    "currency": "USD",
+    "paymentMethod": {
+      "type": "credit_card",
+      "last4": "5678",
+      "brand": "mastercard",
+      "expiryMonth": 8,
+      "expiryYear": 2025
+    },
+    "transactionId": "txn_1K5Q2L2eZvKYlo2C8B9vX3Yr",
+    "status": "completed",
+    "paymentGateway": "stripe",
+    "paymentDate": "2024-01-22T16:25:00Z",
+    "processingFee": 5.10,
+    "netAmount": 170.65,
+    "description": "Parking booking payment for PS002",
+    "metadata": {
+      "spaceId": "PS002",
+      "duration": 9.5,
+      "location": "456 Oak Avenue, Midtown"
+    },
+    "createdAt": "2024-01-22T16:25:00Z",
+    "updatedAt": "2024-01-22T16:25:00Z"
+  },
+  {
+    "_id": "674a3d4e5f6789012363",
+    "paymentId": "PAY004",
+    "bookingId": "BK005",
+    "userId": "674a1a2b3c4d5e6789012205",
+    "amount": 132.00,
+    "currency": "USD",
+    "paymentMethod": {
+      "type": "debit_card",
+      "last4": "9012",
+      "brand": "visa",
+      "expiryMonth": 3,
+      "expiryYear": 2027
+    },
+    "transactionId": "txn_1K5Q2L2eZvKYlo2C8B9vX3Ys",
+    "status": "completed",
+    "paymentGateway": "stripe",
+    "paymentDate": "2024-01-20T11:35:00Z",
+    "processingFee": 3.85,
+    "netAmount": 128.15,
+    "description": "Parking booking payment for PS005",
+    "metadata": {
+      "spaceId": "PS005",
+      "duration": 6,
+      "location": "654 Park Avenue, Upper East Side"
+    },
+    "createdAt": "2024-01-20T11:35:00Z",
+    "updatedAt": "2024-01-20T11:35:00Z"
+  },
+  {
+    "_id": "674a3d4e5f6789012364",
+    "paymentId": "PAY005",
+    "bookingId": "BK006",
+    "userId": "674a1a2b3c4d5e6789012206",
+    "amount": -45.00,
+    "currency": "USD",
+    "paymentMethod": {
+      "type": "credit_card",
+      "last4": "3456",
+      "brand": "american_express",
+      "expiryMonth": 11,
+      "expiryYear": 2025
+    },
+    "transactionId": "re_1K5Q2L2eZvKYlo2C8B9vX3Yt",
+    "status": "refunded",
+    "paymentGateway": "stripe",
+    "paymentDate": "2024-01-23T08:20:00Z",
+    "processingFee": -1.35,
+    "netAmount": -43.65,
+    "description": "Refund for cancelled parking booking BK006",
+    "originalPaymentId": "PAY006",
+    "refundReason": "Booking cancelled by user",
+    "metadata": {
+      "spaceId": "PS001",
+      "duration": 3,
+      "location": "123 Main Street, Downtown"
+    },
+    "createdAt": "2024-01-23T08:20:00Z",
+    "updatedAt": "2024-01-23T08:20:00Z"
+  },
+  {
+    "_id": "674a3d4e5f6789012365",
+    "paymentId": "PAY006",
+    "bookingId": "BK004",
+    "userId": "674a1a2b3c4d5e6789012204",
+    "amount": 51.00,
+    "currency": "USD",
+    "paymentMethod": {
+      "type": "digital_wallet",
+      "provider": "apple_pay",
+      "deviceId": "iPhone_12_Pro"
+    },
+    "transactionId": "pending_auth_123456789",
+    "status": "pending",
+    "paymentGateway": "stripe",
+    "paymentDate": null,
+    "processingFee": 1.48,
+    "netAmount": 49.52,
+    "description": "Pending payment for parking booking PS004",
+    "metadata": {
+      "spaceId": "PS004",
+      "duration": 4,
+      "location": "321 Fifth Avenue, Shopping District"
+    },
+    "authorizationCode": "AUTH_123456789",
+    "authorizationExpiry": "2024-01-25T18:45:00Z",
+    "createdAt": "2024-01-22T18:50:00Z",
+    "updatedAt": "2024-01-22T18:50:00Z"
+  }
+]
