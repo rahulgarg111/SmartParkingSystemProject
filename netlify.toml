@@ -11,6 +11,7 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+  external_node_modules = ["express", "mongoose", "jsonwebtoken", "bcryptjs", "cors", "serverless-http", "dotenv"]
   included_files = ["backend/**", "netlify/functions/**"]
 
 # API redirects - must come before catch-all
