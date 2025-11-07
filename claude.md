@@ -1,1 +1,0 @@
-check the netlify deployment files and correct them so that it can be deployed using netlify
