@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git ls-tree:*)",
+      "Bash(npm run build:*)",
+      "Bash(ls -la \"c:\\Users\\Lenovo\\Desktop\\smart parking system\\backend\\models\"\" 2>&1 || dir \"c:UsersLenovoDesktopsmart parking systembackendmodels\"\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
