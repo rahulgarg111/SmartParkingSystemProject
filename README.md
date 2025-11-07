@@ -3,6 +3,7 @@
 > A full-stack web application for intelligent parking space booking and management with real-time availability tracking, location-based notifications, and an integrated referral program.
 
 LIVE - https://earnest-empanada-a90776.netlify.app/
+VIDEO WALKTHROUGH - https://youtu.be/QLpNNJ59hQM
 
 ## Overview
 
