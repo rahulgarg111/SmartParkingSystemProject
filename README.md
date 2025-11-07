@@ -2,10 +2,10 @@
 
 > A full-stack web application for intelligent parking space booking and management with real-time availability tracking, location-based notifications, and an integrated referral program.
 
-LIVE - https://earnest-empanada-a90776.netlify.app/                                                                                                                                                                  VIDEO WALKTHROUGH - https://youtu.be/QLpNNJ59hQM
+LIVE - https://earnest-empanada-a90776.netlify.app/                                                                                                                                                                  
+VIDEO WALKTHROUGH - https://youtu.be/QLpNNJ59hQM
 
 ## Overview
-
 SmartParking System is a comprehensive parking management solution that enables users to find, book, and pay for parking spaces in real-time. The platform features location-based notifications, dynamic pricing during peak hours, and a referral program that rewards users for bringing friends to the platform.
 
 ## Features
