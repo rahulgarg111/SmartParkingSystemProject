@@ -1,78 +1,68 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { getReferralStats, getOrCreateReferralCode } from '../services/referrals';
+import { useAuth, useBooking } from '../contexts';
 
 const ReferralDashboard = () => {
+  const { userId, userName } = useAuth();
+  const { refreshBookings } = useBooking();
+
   const [referralData, setReferralData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [copySuccess, setCopySuccess] = useState(false);
 
+  const fetchReferralData = useCallback(async () => {
+    try {
+      // Expire overdue bookings first to apply any pending referral rewards
+      await refreshBookings();
+      const data = await getReferralStats(userId, userName);
+      setReferralData(data);
+    } catch (error) {
+      setError(error.message || 'Error fetching referral data');
+    } finally {
+      setLoading(false);
+    }
+  }, [userId, userName, refreshBookings]);
+
   useEffect(() => {
     fetchReferralData();
-  }, []);
+  }, [fetchReferralData]);
 
-  const fetchReferralData = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/referrals/stats', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setReferralData(data.data);
-      } else {
-        setError(data.message);
-      }
-    } catch (error) {
-      setError('Error fetching referral data');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const generateReferralCode = async () => {
+  const generateReferralCode = useCallback(async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/referrals/my-code', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const data = await response.json();
-      if (response.ok) {
-        // Refresh the data to show the new code
-        fetchReferralData();
-      } else {
-        setError(data.message);
-      }
+      await getOrCreateReferralCode(userId, userName);
+      await fetchReferralData();
     } catch (error) {
-      setError('Error generating referral code');
+      setError(error.message || 'Error generating referral code');
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId, userName, fetchReferralData]);
 
-  const copyReferralCode = () => {
-    if (referralData.referralCode) {
+  const copyReferralCode = useCallback(() => {
+    if (referralData?.referralCode) {
       navigator.clipboard.writeText(referralData.referralCode);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
     }
-  };
+  }, [referralData?.referralCode]);
 
   if (loading) {
     return <div className="loading">Loading referral information...</div>;
   }
 
+  if (!referralData) {
+    return <div className="error">{error || 'Failed to load referral data'}</div>;
+  }
+
   return (
     <div className="referral-section">
-      <h3>Referral Program</h3>
-      
+      <h2>Referral Program</h2>
+
       {!referralData.hasBookedParking ? (
         <div className="referral-requirement">
-          <p>🎫 Complete your first parking booking to unlock your referral code!</p>
+          <p>Complete your first parking booking to unlock your referral code!</p>
           <p>Once you book parking, you can:</p>
           <ul>
             <li>Get your unique referral code</li>
@@ -82,7 +72,7 @@ const ReferralDashboard = () => {
         </div>
       ) : !referralData.referralCode ? (
         <div className="generate-code-section">
-          <p>🎉 You can now generate your referral code!</p>
+          <p>You can now generate your referral code!</p>
           <button className="generate-btn" onClick={generateReferralCode}>
             Generate My Referral Code
           </button>
@@ -92,12 +82,12 @@ const ReferralDashboard = () => {
           <div className="referral-code-display">
             <h4>Your Referral Code</h4>
             <div className="referral-code">{referralData.referralCode}</div>
-            <button 
-              className="copy-btn" 
+            <button
+              className="copy-btn"
               onClick={copyReferralCode}
               disabled={copySuccess}
             >
-              {copySuccess ? '✓ Copied!' : '📋 Copy Code'}
+              {copySuccess ? 'Copied!' : 'Copy Code'}
             </button>
           </div>
 
@@ -130,8 +120,8 @@ const ReferralDashboard = () => {
             <div className="referred-users">
               <h4>Recent Referrals</h4>
               <div className="referral-list">
-                {referralData.referredUsers.map((referral, index) => (
-                  <div key={index} className="referral-item">
+                {referralData.referredUsers.map((referral) => (
+                  <div key={referral.user?.id || referral.referredAt} className="referral-item">
                     <div className="referral-info">
                       <span className="user-name">{referral.user.name}</span>
                       <span className="referral-date">

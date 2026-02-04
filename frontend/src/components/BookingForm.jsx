@@ -1,6 +1,13 @@
-import { useState } from 'react';
+import { useState, useMemo, useCallback, useRef } from 'react';
+import { createBooking } from '../services/bookings';
+import { validateReferralCode } from '../services/referrals';
+import { useAuth, useBooking } from '../contexts';
 
-const BookingForm = ({ space, onClose, onBookingSuccess }) => {
+const BookingForm = ({ onBookingSuccess }) => {
+  // Get data from contexts instead of props
+  const { userId } = useAuth();
+  const { selectedSpace: space, closeBookingForm } = useBooking();
+
   const [formData, setFormData] = useState({
     startTime: '',
     endTime: '',
@@ -12,50 +19,75 @@ const BookingForm = ({ space, onClose, onBookingSuccess }) => {
   const [error, setError] = useState('');
   const [referralStatus, setReferralStatus] = useState(null);
   const [referralDiscount, setReferralDiscount] = useState(0);
-  const [surchargeAmount, setSurchargeAmount] = useState(0);
+  const referralTimeoutRef = useRef(null);
+
+  const getNowString = () => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().slice(0, 16);
+  };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if ((name === 'startTime' || name === 'endTime') && value) {
+      if (new Date(value) < new Date()) {
+        alert('You cannot select a past date or time.');
+        return;
+      }
+    }
+
+    if (name === 'endTime' && value && formData.startTime) {
+      if (new Date(value) <= new Date(formData.startTime)) {
+        alert('End time must be after start time.');
+        return;
+      }
+    }
+
+    if (name === 'startTime' && value && formData.endTime) {
+      if (new Date(formData.endTime) <= new Date(value)) {
+        alert('Start time must be before end time.');
+        return;
+      }
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
-  const calculateDuration = () => {
+  const duration = useMemo(() => {
     if (!formData.startTime || !formData.endTime) return 0;
     const start = new Date(formData.startTime);
     const end = new Date(formData.endTime);
     return Math.ceil((end - start) / (1000 * 60 * 60));
-  };
+  }, [formData.startTime, formData.endTime]);
 
-  const calculateOriginalTotal = () => {
-    return calculateDuration() * space.pricePerHour;
-  };
-
-  const checkPeakHour = () => {
+  const isPeakHour = useMemo(() => {
     if (!formData.startTime) return false;
     const startTime = new Date(formData.startTime);
     const hour = startTime.getHours();
-    return hour >= 8 && hour < 10; // Peak hours: 8 AM - 10 AM
-  };
+    return hour >= 8 && hour < 10;
+  }, [formData.startTime]);
 
-  const calculateSurcharge = () => {
-    const isPeak = checkPeakHour();
-    if (isPeak) {
-      const original = calculateOriginalTotal();
-      return Math.round(original * 0.10 * 100) / 100; // 10% surcharge
+  const originalTotal = useMemo(() => {
+    return duration * (space?.pricePerHour || 0);
+  }, [duration, space?.pricePerHour]);
+
+  const surcharge = useMemo(() => {
+    if (isPeakHour) {
+      return Math.round(originalTotal * 0.10 * 100) / 100;
     }
     return 0;
-  };
+  }, [isPeakHour, originalTotal]);
 
-  const calculateTotal = () => {
-    const original = calculateOriginalTotal();
-    const surcharge = calculateSurcharge();
-    const totalBeforeDiscount = original + surcharge;
+  const finalTotal = useMemo(() => {
+    const totalBeforeDiscount = originalTotal + surcharge;
     return totalBeforeDiscount - referralDiscount;
-  };
+  }, [originalTotal, surcharge, referralDiscount]);
 
-  const validateReferralCode = async (code) => {
+  const handleValidateReferral = useCallback(async (code) => {
     if (!code.trim()) {
       setReferralStatus(null);
       setReferralDiscount(0);
@@ -63,31 +95,19 @@ const BookingForm = ({ space, onClose, onBookingSuccess }) => {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/referrals/validate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ referralCode: code }),
-      });
-
-      const data = await response.json();
-      if (response.ok && data.valid) {
+      const result = await validateReferralCode(code, userId);
+      if (result.valid) {
         setReferralStatus({
           valid: true,
-          message: data.message,
-          referrerName: data.data.referrerName
+          message: result.message,
+          referrerName: result.referrerName
         });
-        const original = calculateOriginalTotal();
-        const surcharge = calculateSurcharge();
-        const totalBeforeDiscount = original + surcharge;
+        const totalBeforeDiscount = originalTotal + surcharge;
         setReferralDiscount(Math.round(totalBeforeDiscount * 0.05 * 100) / 100);
       } else {
         setReferralStatus({
           valid: false,
-          message: data.message
+          message: result.message
         });
         setReferralDiscount(0);
       }
@@ -98,59 +118,71 @@ const BookingForm = ({ space, onClose, onBookingSuccess }) => {
       });
       setReferralDiscount(0);
     }
-  };
+  }, [userId, originalTotal, surcharge]);
 
-  const handleReferralCodeChange = (e) => {
+  const handleReferralCodeChange = useCallback((e) => {
     const code = e.target.value;
     setFormData({
       ...formData,
       referralCode: code
     });
-    
-    // Debounce the validation
-    clearTimeout(window.referralTimeout);
-    window.referralTimeout = setTimeout(() => validateReferralCode(code), 500);
-  };
+
+    clearTimeout(referralTimeoutRef.current);
+    referralTimeoutRef.current = setTimeout(() => handleValidateReferral(code), 500);
+  }, [handleValidateReferral]);
+
+  const handleClose = useCallback(() => {
+    closeBookingForm();
+  }, [closeBookingForm]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          parkingSpaceId: space._id,
-          ...formData
-        }),
-      });
+    const now = new Date();
+    if (new Date(formData.startTime) < now) {
+      alert('Start time cannot be in the past.');
+      setLoading(false);
+      return;
+    }
+    if (new Date(formData.endTime) < now) {
+      alert('End time cannot be in the past.');
+      setLoading(false);
+      return;
+    }
+    if (new Date(formData.endTime) <= new Date(formData.startTime)) {
+      alert('End time must be after start time.');
+      setLoading(false);
+      return;
+    }
 
-      const data = await response.json();
-      if (response.ok) {
-        onBookingSuccess(data.booking);
-        onClose();
-      } else {
-        setError(data.message || 'Booking failed');
+    try {
+      const booking = await createBooking(userId, {
+        parkingSpaceId: space.id,
+        ...formData,
+        referralCode: referralStatus?.valid ? formData.referralCode : ''
+      });
+      alert('Booking Confirmed! Please pay at the booth upon arrival.');
+      if (onBookingSuccess) {
+        onBookingSuccess(booking);
       }
+      closeBookingForm();
     } catch (error) {
-      setError('Network error occurred');
+      setError(error.message || 'Booking failed');
     } finally {
       setLoading(false);
     }
   };
+
+  if (!space) return null;
 
   return (
     <div className="modal-overlay">
       <div className="modal">
         <div className="modal-header">
           <h2>Book Parking Space</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <button className="close-btn" onClick={handleClose}>×</button>
         </div>
         <div className="modal-body">
           <div className="space-info">
@@ -158,7 +190,7 @@ const BookingForm = ({ space, onClose, onBookingSuccess }) => {
             <p>{space.location.address}</p>
             <p>Price: ${space.pricePerHour}/hour</p>
           </div>
-          
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Start Time:</label>
@@ -167,6 +199,7 @@ const BookingForm = ({ space, onClose, onBookingSuccess }) => {
                 name="startTime"
                 value={formData.startTime}
                 onChange={handleChange}
+                min={getNowString()}
                 required
               />
             </div>
@@ -178,6 +211,7 @@ const BookingForm = ({ space, onClose, onBookingSuccess }) => {
                 name="endTime"
                 value={formData.endTime}
                 onChange={handleChange}
+                min={formData.startTime || getNowString()}
                 required
               />
             </div>
@@ -217,7 +251,7 @@ const BookingForm = ({ space, onClose, onBookingSuccess }) => {
               {referralStatus && (
                 <div className={`referral-status ${referralStatus.valid ? 'valid' : 'invalid'}`}>
                   {referralStatus.valid && referralStatus.referrerName && (
-                    <span>✓ Referred by {referralStatus.referrerName}. </span>
+                    <span>Referred by {referralStatus.referrerName}. </span>
                   )}
                   {referralStatus.message}
                 </div>
@@ -226,22 +260,22 @@ const BookingForm = ({ space, onClose, onBookingSuccess }) => {
 
             {formData.startTime && formData.endTime && (
               <div className="booking-summary">
-                <p>Duration: {calculateDuration()} hours</p>
-                <p>Base Amount: ${calculateOriginalTotal()}</p>
-                {checkPeakHour() && (
-                  <p className="surcharge">Peak Hour Surcharge (8-10 AM): +${calculateSurcharge()}</p>
+                <p>Duration: {duration} hours</p>
+                <p>Base Amount: ${originalTotal}</p>
+                {isPeakHour && (
+                  <p className="surcharge">Peak Hour Surcharge (8-10 AM): +${surcharge}</p>
                 )}
                 {referralDiscount > 0 && (
                   <p className="discount">Referral Discount (5%): -${referralDiscount}</p>
                 )}
-                <p><strong>Final Total: ${calculateTotal()}</strong></p>
+                <p><strong>Final Total: ${finalTotal}</strong></p>
               </div>
             )}
 
             {error && <div className="error">{error}</div>}
 
             <div className="modal-actions">
-              <button type="button" onClick={onClose} disabled={loading}>
+              <button type="button" onClick={handleClose} disabled={loading}>
                 Cancel
               </button>
               <button type="submit" disabled={loading}>

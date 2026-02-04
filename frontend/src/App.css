@@ -15,20 +15,20 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: var(--bg-app);
 }
 
 .auth-container {
-  background: white;
+  background: var(--bg-card);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-card);
   width: 300px;
 }
 
 .auth-container h1 {
   margin-bottom: 2rem;
-  color: #333;
+  color: var(--text-primary);
   text-align: center;
 }
 
@@ -40,14 +40,15 @@ body, html {
 .auth-toggle button {
   flex: 1;
   padding: 0.5rem;
-  border: 1px solid #ddd;
-  background: white;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
   cursor: pointer;
+  color: var(--text-primary);
 }
 
 .auth-toggle button.active {
-  background: #007bff;
-  color: black;
+  background: var(--color-primary);
+  color: var(--text-inverse);
 }
 
 .auth-toggle button:first-child {
@@ -66,15 +67,17 @@ form {
 
 input {
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 1rem;
+  background: var(--bg-input);
+  color: var(--text-primary);
 }
 
 button[type="submit"] {
   padding: 0.75rem;
-  background: #007bff;
-  color: white;
+  background: var(--color-primary);
+  color: var(--text-inverse);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -82,7 +85,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background: #0056b3;
+  background: var(--color-primary-hover);
 }
 
 .parking-container {
@@ -99,25 +102,36 @@ button[type="submit"]:hover {
 }
 
 .header h1 {
-  color: #333;
+  color: var(--text-primary);
   margin: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-email {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .logout-btn {
   padding: 0.5rem 1rem;
-  background: #dc3545;
-  color: white;
+  background: var(--color-danger);
+  color: var(--text-inverse);
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .logout-btn:hover {
-  background: #c82333;
+  background: var(--color-danger-hover);
 }
 
 .parking-container h2 {
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 1.5rem;
 }
 
@@ -128,27 +142,27 @@ button[type="submit"]:hover {
 }
 
 .parking-card {
-  background: white;
+  background: var(--bg-card);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
 }
 
 .parking-card h3 {
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .address {
-  color: #666;
+  color: var(--text-muted);
   margin-bottom: 1rem;
   font-style: italic;
 }
 
 .space-info p {
   margin: 0.25rem 0;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .status {
@@ -160,15 +174,15 @@ button[type="submit"]:hover {
 }
 
 .status.available {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background: var(--status-available-bg);
+  color: var(--status-available-text);
+  border: 1px solid var(--status-available-border);
 }
 
 .status.full {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background: var(--status-full-bg);
+  color: var(--status-full-text);
+  border: 1px solid var(--status-full-border);
 }
 
 /* Navigation Tabs */
@@ -176,9 +190,10 @@ button[type="submit"]:hover {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid var(--border-color);
 }
 
+.nav-tabs a,
 .nav-tabs button {
   padding: 0.75rem 1.5rem;
   background: transparent;
@@ -186,25 +201,29 @@ button[type="submit"]:hover {
   border-bottom: 2px solid transparent;
   cursor: pointer;
   font-size: 1rem;
-  color: #666;
+  color: var(--text-muted);
   transition: all 0.3s ease;
+  text-decoration: none;
+  margin-bottom: -2px;
 }
 
+.nav-tabs a.active,
 .nav-tabs button.active {
-  color: #007bff;
-  border-bottom-color: #007bff;
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
 }
 
+.nav-tabs a:hover,
 .nav-tabs button:hover {
-  color: #007bff;
+  color: var(--color-primary);
 }
 
 /* Book Button */
 .book-btn {
   width: 100%;
   padding: 0.75rem;
-  background: #28a745;
-  color: white;
+  background: var(--color-success);
+  color: var(--text-inverse);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -214,7 +233,32 @@ button[type="submit"]:hover {
 }
 
 .book-btn:hover {
-  background: #218838;
+  background: var(--color-success-hover);
+}
+
+/* Alert Me Button */
+.alert-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-warning);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+
+.alert-btn:hover {
+  background: var(--color-warning-hover);
+}
+
+.alert-btn:disabled {
+  background: var(--color-secondary);
+  color: var(--text-inverse);
+  cursor: not-allowed;
 }
 
 /* Modal Styles */
@@ -224,7 +268,7 @@ button[type="submit"]:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--shadow-modal);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -232,7 +276,7 @@ button[type="submit"]:hover {
 }
 
 .modal {
-  background: white;
+  background: var(--bg-card);
   border-radius: 8px;
   width: 90%;
   max-width: 500px;
@@ -245,12 +289,12 @@ button[type="submit"]:hover {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .modal-header h2 {
   margin: 0;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .close-btn {
@@ -258,7 +302,7 @@ button[type="submit"]:hover {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #999;
+  color: var(--text-light);
   padding: 0;
   width: 30px;
   height: 30px;
@@ -268,7 +312,7 @@ button[type="submit"]:hover {
 }
 
 .close-btn:hover {
-  color: #333;
+  color: var(--text-primary);
 }
 
 .modal-body {
@@ -276,7 +320,7 @@ button[type="submit"]:hover {
 }
 
 .space-info {
-  background: #f8f9fa;
+  background: var(--bg-info-box);
   padding: 1rem;
   border-radius: 4px;
   margin-bottom: 1.5rem;
@@ -284,12 +328,12 @@ button[type="submit"]:hover {
 
 .space-info h3 {
   margin: 0 0 0.5rem 0;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .space-info p {
   margin: 0.25rem 0;
-  color: #666;
+  color: var(--text-muted);
 }
 
 /* Form Styles */
@@ -300,7 +344,7 @@ button[type="submit"]:hover {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 500;
 }
 
@@ -309,9 +353,11 @@ button[type="submit"]:hover {
 .form-group textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 1rem;
+  background: var(--bg-input);
+  color: var(--text-primary);
 }
 
 .form-group textarea {
@@ -330,7 +376,7 @@ button[type="submit"]:hover {
 
 .booking-summary,
 .payment-summary {
-  background: #e9ecef;
+  background: var(--bg-tertiary);
   padding: 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;
@@ -339,13 +385,13 @@ button[type="submit"]:hover {
 .booking-summary h3,
 .payment-summary h3 {
   margin: 0 0 0.5rem 0;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .booking-summary p,
 .payment-summary p {
   margin: 0.25rem 0;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .modal-actions {
@@ -364,14 +410,14 @@ button[type="submit"]:hover {
 }
 
 .modal-actions button[type="button"] {
-  background: #6c757d;
-  color: white;
+  background: var(--color-secondary);
+  color: var(--text-inverse);
 }
 
 .modal-actions button[type="submit"],
 .modal-actions button:not([type]) {
-  background: #007bff;
-  color: white;
+  background: var(--color-primary);
+  color: var(--text-inverse);
 }
 
 .modal-actions button:hover {
@@ -383,6 +429,198 @@ button[type="submit"]:hover {
   cursor: not-allowed;
 }
 
+/* Loading Container */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.card-actions button {
+  flex: 1;
+}
+
+.details-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-danger);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+
+.details-btn:hover {
+  background: var(--color-danger-hover);
+}
+
+/* Check Availability Button */
+.check-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-info);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+
+.check-btn:hover {
+  background: var(--color-info-hover);
+}
+
+/* Space Details Page */
+.space-details {
+  width: 100%;
+}
+
+.space-details.not-found {
+  text-align: center;
+  padding: 3rem;
+}
+
+.back-btn {
+  padding: 0.5rem 1rem;
+  background: var(--color-secondary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+  background: var(--color-secondary-hover);
+}
+
+.space-details-card {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
+}
+
+.space-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.space-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.status-badge.available {
+  background: var(--status-available-bg);
+  color: var(--status-available-text);
+}
+
+.status-badge.full {
+  background: var(--status-full-bg);
+  color: var(--status-full-text);
+}
+
+.space-location {
+  margin-bottom: 1.5rem;
+}
+
+.space-location h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.space-location .coordinates {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+}
+
+.space-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.space-stats .stat {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.space-stats .stat-label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.space-stats .stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.space-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.space-actions button {
+  flex: 1;
+}
+
+.space-actions .primary {
+  background: var(--color-success);
+}
+
+.space-actions .primary:hover {
+  background: var(--color-success-hover);
+}
+
+/* Error Message */
+.error-message {
+  background: var(--status-full-bg);
+  color: var(--status-full-text);
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--status-full-border);
+  text-align: center;
+}
+
 /* Bookings Styles */
 .bookings-container {
   width: 100%;
@@ -391,13 +629,13 @@ button[type="submit"]:hover {
 .loading {
   text-align: center;
   padding: 2rem;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .no-bookings {
   text-align: center;
   padding: 3rem;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .bookings-list {
@@ -407,11 +645,11 @@ button[type="submit"]:hover {
 }
 
 .booking-card {
-  background: white;
+  background: var(--bg-card);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
 }
 
 .booking-header {
@@ -423,14 +661,14 @@ button[type="submit"]:hover {
 
 .booking-header h3 {
   margin: 0;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .status-badge,
 .payment-badge {
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
-  color: white;
+  color: var(--text-inverse);
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -441,7 +679,7 @@ button[type="submit"]:hover {
 
 .booking-details p {
   margin: 0.5rem 0;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .payment-status {
@@ -455,8 +693,8 @@ button[type="submit"]:hover {
 
 .pay-btn {
   padding: 0.5rem 1rem;
-  background: #28a745;
-  color: white;
+  background: var(--color-success);
+  color: var(--text-inverse);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -464,13 +702,13 @@ button[type="submit"]:hover {
 }
 
 .pay-btn:hover {
-  background: #218838;
+  background: var(--color-success-hover);
 }
 
 .cancel-btn {
   padding: 0.5rem 1rem;
-  background: #dc3545;
-  color: white;
+  background: var(--color-danger);
+  color: var(--text-inverse);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -478,27 +716,27 @@ button[type="submit"]:hover {
 }
 
 .cancel-btn:hover {
-  background: #c82333;
+  background: var(--color-danger-hover);
 }
 
 /* Error Styles */
 .error {
-  background: #f8d7da;
-  color: #721c24;
+  background: var(--status-full-bg);
+  color: var(--status-full-text);
   padding: 0.75rem;
   border-radius: 4px;
   margin-bottom: 1rem;
-  border: 1px solid #f5c6cb;
+  border: 1px solid var(--status-full-border);
 }
 
 /* Success Styles */
 .success {
-  background: #d4edda;
-  color: #155724;
+  background: var(--status-available-bg);
+  color: var(--status-available-text);
   padding: 0.75rem;
   border-radius: 4px;
   margin-bottom: 1rem;
-  border: 1px solid #c3e6cb;
+  border: 1px solid var(--status-available-border);
 }
 
 /* Cash Payment Info */
@@ -507,20 +745,20 @@ button[type="submit"]:hover {
 }
 
 .info-box {
-  background: #fff3cd;
-  border: 1px solid #ffeaa7;
+  background: var(--status-warning-bg);
+  border: 1px solid var(--status-warning-border);
   border-radius: 4px;
   padding: 1rem;
 }
 
 .info-box h4 {
-  color: #856404;
+  color: var(--status-warning-text);
   margin: 0 0 0.5rem 0;
   font-size: 1rem;
 }
 
 .info-box p {
-  color: #856404;
+  color: var(--status-warning-text);
   margin: 0.5rem 0;
   line-height: 1.4;
 }
@@ -534,44 +772,44 @@ button[type="submit"]:hover {
 }
 
 .referral-status.valid {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background: var(--status-available-bg);
+  color: var(--status-available-text);
+  border: 1px solid var(--status-available-border);
 }
 
 .referral-status.invalid {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background: var(--status-full-bg);
+  color: var(--status-full-text);
+  border: 1px solid var(--status-full-border);
 }
 
 .discount {
-  color: #28a745;
+  color: var(--color-success);
   font-weight: 500;
 }
 
 .surcharge {
-  color: #dc3545;
+  color: var(--color-danger);
   font-weight: 500;
 }
 
 /* Referral Dashboard Styles */
 .referral-section {
-  background: white;
+  background: var(--bg-card);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border: 1px solid #ddd;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
   margin-bottom: 2rem;
 }
 
 .referral-section h3 {
   margin: 0 0 1rem 0;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .referral-code-display {
-  background: #f8f9fa;
+  background: var(--bg-secondary);
   padding: 1rem;
   border-radius: 4px;
   text-align: center;
@@ -581,7 +819,7 @@ button[type="submit"]:hover {
 .referral-code {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #007bff;
+  color: var(--color-primary);
   letter-spacing: 2px;
 }
 
@@ -595,18 +833,18 @@ button[type="submit"]:hover {
 .stat-card {
   text-align: center;
   padding: 1rem;
-  background: #f8f9fa;
+  background: var(--bg-secondary);
   border-radius: 4px;
 }
 
 .stat-value {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #007bff;
+  color: var(--color-primary);
 }
 
 .stat-label {
-  color: #666;
+  color: var(--text-muted);
   font-size: 0.875rem;
 }
 
@@ -622,8 +860,8 @@ button[type="submit"]:hover {
 }
 
 .generate-btn, .copy-btn {
-  background: #007bff;
-  color: white;
+  background: var(--color-primary);
+  color: var(--text-inverse);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 4px;
@@ -633,11 +871,11 @@ button[type="submit"]:hover {
 }
 
 .generate-btn:hover, .copy-btn:hover {
-  background: #0056b3;
+  background: var(--color-primary-hover);
 }
 
 .copy-btn:disabled {
-  background: #28a745;
+  background: var(--color-success);
   cursor: not-allowed;
 }
 
@@ -646,7 +884,7 @@ button[type="submit"]:hover {
 }
 
 .referral-instructions h4 {
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
@@ -656,7 +894,7 @@ button[type="submit"]:hover {
 
 .referral-instructions li {
   margin: 0.5rem 0;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .referred-users {
@@ -664,7 +902,7 @@ button[type="submit"]:hover {
 }
 
 .referred-users h4 {
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
@@ -679,9 +917,9 @@ button[type="submit"]:hover {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem;
-  background: #f8f9fa;
+  background: var(--bg-secondary);
   border-radius: 4px;
-  border: 1px solid #dee2e6;
+  border: 1px solid var(--border-light);
 }
 
 .referral-info {
@@ -692,28 +930,56 @@ button[type="submit"]:hover {
 
 .user-name {
   font-weight: 500;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .referral-date {
   font-size: 0.875rem;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .referral-reward {
   font-weight: bold;
-  color: #28a745;
+  color: var(--color-success);
   font-size: 1.1rem;
 }
 
 .surcharge-info {
-  color: #dc3545;
+  color: var(--color-danger);
   font-size: 0.9rem;
 }
 
 .discount-info {
-  color: #28a745;
+  color: var(--color-success);
   font-size: 0.9rem;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-secondary);
+  border-color: var(--color-primary);
+}
+
+.theme-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover svg {
+  transform: rotate(15deg);
 }
 
 /* Responsive Design */
@@ -721,27 +987,40 @@ button[type="submit"]:hover {
   .parking-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .modal {
     width: 95%;
     margin: 1rem;
   }
-  
+
   .form-row {
     flex-direction: column;
   }
-  
+
   .booking-actions {
     flex-direction: column;
   }
-  
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .space-actions {
+    flex-direction: column;
+  }
+
+  .space-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .nav-tabs {
     flex-direction: column;
     gap: 0;
   }
-  
+
+  .nav-tabs a,
   .nav-tabs button {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     border-radius: 0;
   }
 }
