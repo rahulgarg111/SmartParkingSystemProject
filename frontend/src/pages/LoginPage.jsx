@@ -54,7 +54,7 @@ const LoginPage = () => {
   return (
     <div className="App">
       <div className="auth-container">
-        <h1>Welcome to Park Smart</h1>
+        <h1>Enter Park Smart</h1>
 
         <div className="auth-toggle">
           <button
